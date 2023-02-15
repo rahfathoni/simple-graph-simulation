@@ -2,7 +2,16 @@ const { Food } = require("../models/index");
 
 const formatingDate = (item) => {
   const date = new Date(item);
-  return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+  const year = date.getFullYear().toString();
+  let month = (date.getMonth() + 1).toString();
+  let day = date.getDate().toString();
+  if (day.length === 1) {
+    day = `0${day}`;
+  }
+  if (month.length === 1) {
+    month = `0${month}`;
+  }
+  return `${year}-${month}-${day}`;
 };
 
 class FoodController {
@@ -34,7 +43,7 @@ class FoodController {
   static readFood(req, res, next) {
     const options = {
       attributes: { exclude: ["updatedAt"] },
-      order: [["createdAt", "ASC"]],
+      order: [["id", "ASC"]],
     };
     Food.findAll(options)
       .then((data) => {
@@ -44,6 +53,7 @@ class FoodController {
           });
         }
         const newData = data.map((x) => ({
+          id: x.id,
           name: x.name,
           amount: x.amount,
           price: x.price,
@@ -131,7 +141,6 @@ class FoodController {
   // router.get("/total", FoodController.readTotal);
   static readTotal(req, res, next) {
     const options = {
-      attributes: { include: ["name"] },
       order: [["createdAt", "ASC"]],
     };
     Food.findAll(options)
