@@ -14,13 +14,9 @@
         </div>
       </div>
     </div>
+    <q-separator class="q-mt-sm" size="1px" />
     <div class="q-gutter-y-md q-pt-sm">
-      <q-tabs
-        v-model="tab"
-        dense
-        class="text-black"
-        @update:model-value="changeTab"
-      >
+      <q-tabs v-model="tab" dense class="text-black">
         <q-tab name="grafik" icon="bar_chart" label="Grafik" />
         <q-tab name="edit" icon="list_alt" label="Edit Data" />
       </q-tabs>
@@ -38,16 +34,17 @@ export default {
     const store = useStore();
 
     // COMPUTED
-    const tab = computed(() => store.getters["getMenuTab"]);
-
-    //METHOD
-    const changeTab = (val) => {
-      store.commit("setMenuTab", val);
-    };
+    const tab = computed({
+      get() {
+        return store.getters["getMenuTab"];
+      },
+      set(val) {
+        store.commit("setMenuTab", val);
+      },
+    });
 
     return {
       tab,
-      changeTab,
     };
   },
 };

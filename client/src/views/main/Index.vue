@@ -13,7 +13,7 @@ export default {
   name: "MainPage",
   components: {
     GraphPage: defineAsyncComponent(() => import("./graph/Index")),
-    EditPage: defineAsyncComponent(() => import("./edit/Index.vue")),
+    EditPage: defineAsyncComponent(() => import("./edit/Index")),
   },
   setup() {
     const store = useStore();
