@@ -47,23 +47,23 @@ export default {
       throw err;
     }
   },
-  // InputFoodReport: async (payload) => {
-  //   try {
-  //     const req = {
-  //       name: payload.name,
-  //       amount: payload.amount,
-  //       price: payload.price,
-  //       createdAt: payload.date,
-  //     };
-  //     console.debug("REQ InputFoodReport", req);
-  //     const res = await axios.post(`${base_url}/food`, req);
-  //     console.debug("RES InputFoodReport", res.data);
-  //     return res.data;
-  //   } catch (err) {
-  //     console.error("ERR InputFoodReport", err);
-  //     throw err;
-  //   }
-  // },
+  InputFoodReport: async (payload) => {
+    try {
+      const req = {
+        name: payload.name,
+        amount: payload.amount,
+        price: payload.price,
+        createdAt: payload.date,
+      };
+      console.debug("REQ InputFoodReport", req);
+      const res = await axios.post(`${base_url}/food`, req);
+      console.debug("RES InputFoodReport", res.data);
+      return res.data;
+    } catch (err) {
+      console.error("ERR InputFoodReport", err);
+      throw err;
+    }
+  },
   // DeleteFoodReport: async (payload) => {
   //   try {
   //     console.debug("REQ DeleteFoodReport", payload);

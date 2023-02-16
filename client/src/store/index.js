@@ -143,6 +143,14 @@ export default createStore({
         commit("setFoodReportByName");
       }
     },
+    async submitFoodReport(_store, payload) {
+      try {
+        await services.InputFoodReport(payload);
+        return true;
+      } catch (err) {
+        return false;
+      }
+    },
   },
   modules: {},
 });

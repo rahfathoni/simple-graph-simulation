@@ -83,7 +83,7 @@ export default {
       {
         name: "price",
         align: "left",
-        label: "Harga (Rp)",
+        label: "Harga Satuan (Rp)",
         field: "price",
         sortable: true,
         style: "font-size: 15px",
