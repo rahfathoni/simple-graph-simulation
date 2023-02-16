@@ -64,15 +64,15 @@ export default {
       throw err;
     }
   },
-  // DeleteFoodReport: async (payload) => {
-  //   try {
-  //     console.debug("REQ DeleteFoodReport", payload);
-  //     const res = await axios.delete(`${base_url}/food/${payload.id}`);
-  //     console.debug("RES DeleteFoodReport", res.data);
-  //     return res.data;
-  //   } catch (err) {
-  //     console.error("ERR DeleteFoodReport", err);
-  //     throw err;
-  //   }
-  // },
+  DeleteFoodReport: async (payload) => {
+    try {
+      console.debug("REQ DeleteFoodReport", payload);
+      const res = await axios.delete(`${base_url}/food/${payload.id}`);
+      console.debug("RES DeleteFoodReport", res.data);
+      return res.data;
+    } catch (err) {
+      console.error("ERR DeleteFoodReport", err);
+      throw err;
+    }
+  },
 };

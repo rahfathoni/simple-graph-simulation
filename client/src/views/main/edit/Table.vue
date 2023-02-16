@@ -23,19 +23,70 @@
             </template>
           </q-input>
         </template>
+        <template v-slot:body-cell-action="props">
+          <q-td :props="props" class="text-center">
+            <q-btn
+              :name="`ButtonDetail${props.rowIndex + 1}`"
+              flat
+              color="red"
+              size="md"
+              icon="delete_forever"
+              @click.prevent="dialogDelete(props.row)"
+            >
+              <q-tooltip
+                class="bg-grey-7"
+                anchor="top middle"
+                self="bottom middle"
+                :offset="[10, 10]"
+              >
+                HAPUS
+              </q-tooltip>
+            </q-btn>
+          </q-td>
+        </template>
       </q-table>
     </div>
+
+    <q-dialog v-model="showDialogDelete" persistent>
+      <q-card>
+        <q-card-section class="row items-center">
+          <q-avatar icon="delete_forever" color="red" text-color="white" />
+          <span class="q-ml-sm"
+            >Hapus laporan penjualan <b>{{ pickDelete.name }}</b> dengan kode id
+            <b>{{ pickDelete.id }}</b> ?</span
+          >
+        </q-card-section>
+
+        <q-card-actions align="right" class="q-px-md q-pb-md">
+          <q-btn
+            label="Kembali"
+            color="grey-8"
+            class="q-mr-md"
+            v-close-popup
+            :loading="btnLoading"
+          />
+          <q-btn
+            label="Hapus"
+            color="red"
+            @click.prevent="deleteReport"
+            :loading="btnLoading"
+          />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
   </div>
 </template>
 
 <script>
 import { computed, ref } from "vue";
 import { useStore } from "vuex";
+import { useQuasar } from "quasar";
 
 export default {
   name: "DataTable",
   setup() {
     const store = useStore();
+    const $q = useQuasar();
 
     // DATA
     const columns = ref([
@@ -107,16 +158,75 @@ export default {
         headerClasses: "text-weight-bold",
         headerStyle: "font-size: 18px",
       },
+      {
+        name: "action",
+        align: "center",
+        label: "Tindakan",
+        field: "action",
+        sortable: true,
+        style: "font-size: 15px",
+        headerClasses: "text-weight-bold",
+        headerStyle: "font-size: 18px",
+      },
     ]);
     const filter = ref("");
+    const showDialogDelete = ref(false);
+    const pickDelete = ref({
+      name: "",
+      id: "",
+    });
+    const btnLoading = ref(false);
 
     // COMPUTED
     const foodReport = computed(() => store.getters["getAllFoodReport"]);
+
+    // METHOD
+    const showNotif = (val) => {
+      $q.notify({
+        message: val === "success" ? "Delete Data Sukses" : "Delete Data Gagal",
+        color: val === "success" ? "green" : "red",
+        position: "top",
+        progress: true,
+        actions: [{ icon: "close", color: "black" }],
+      });
+    };
+    const dialogDelete = (val) => {
+      pickDelete.value = {
+        name: val.name,
+        id: val.id,
+      };
+      showDialogDelete.value = true;
+    };
+    const deleteReport = async () => {
+      btnLoading.value = true;
+      const req = {
+        id: pickDelete.value.id,
+      };
+      const res = await store.dispatch("deleteFoodReport", req);
+      if (!res) {
+        showNotif("failed");
+        btnLoading.value = false;
+        return;
+      }
+      await store.dispatch("inquiryAllFoodReport");
+      showNotif("success");
+      pickDelete.value = {
+        name: "",
+        id: "",
+      };
+      showDialogDelete.value = false;
+      btnLoading.value = false;
+    };
 
     return {
       foodReport,
       columns,
       filter,
+      showDialogDelete,
+      pickDelete,
+      btnLoading,
+      dialogDelete,
+      deleteReport,
     };
   },
 };

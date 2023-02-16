@@ -151,6 +151,14 @@ export default createStore({
         return false;
       }
     },
+    async deleteFoodReport(_store, payload) {
+      try {
+        await services.DeleteFoodReport(payload);
+        return true;
+      } catch (err) {
+        return false;
+      }
+    },
   },
   modules: {},
 });

@@ -183,7 +183,6 @@ export default {
         actions: [{ icon: "close", color: "black" }],
       });
     };
-
     const submitReport = async () => {
       btnLoading.value = true;
       const exp = /^\W?\s?(\d+)[.,](\d+)?,?(\d+)?$/g;

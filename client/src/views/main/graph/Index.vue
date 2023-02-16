@@ -1,7 +1,7 @@
 <template>
   <div class="q-pa-sm">
-    <BarChart />
-    <PieChart class="q-pt-md" />
+    <PieChart />
+    <BarChart class="q-pt-md" />
   </div>
 </template>
 
