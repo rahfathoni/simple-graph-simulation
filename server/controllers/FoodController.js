@@ -69,7 +69,7 @@ class FoodController {
       });
   }
 
-  // router.get("/search", FoodController.readFoodByName);
+  // router.post("/search", FoodController.readFoodByName);
   static readFoodByName(req, res, next) {
     const { name } = req.body;
     const options = {
