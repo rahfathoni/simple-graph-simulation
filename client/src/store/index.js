@@ -11,7 +11,9 @@ const generateRandomColor = (data) => {
       for (let x = 0; x < 6; x++) {
         color += letters[Math.floor(Math.random() * 16)];
       }
-      colors.push(color);
+      if (!colors.includes(color)) {
+        colors.push(color);
+      }
     }
   }
   return colors;
@@ -49,7 +51,14 @@ export default createStore({
       return result;
     },
     getAllFoodReport(state) {
-      return state.allFoodReport;
+      let data = state.allFoodReport;
+      if (data && data.length !== 0) {
+        data = data.map((item, index) => ({
+          no: index + 1,
+          ...item,
+        }));
+      }
+      return data;
     },
     getFoodReportByName(state) {
       return state.foodReportByName;
@@ -97,13 +106,6 @@ export default createStore({
         list: val.list,
       };
     },
-    // setLastInputHistory(state, val) {
-    //   let data = state.inputHistory;
-    //   if (data) {
-    //     data = data.slice(0, -1);
-    //     state.inputHistory = `${data} ${val}`;
-    //   }
-    // },
   },
   actions: {
     async inquiryAllFoodReport({ commit }) {

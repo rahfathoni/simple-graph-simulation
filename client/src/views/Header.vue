@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-grey-3 q-pa-md">
+  <div class="bg-grey-3 q-px-md q-pt-md">
     <div class="fit row justify-start items-start content-start q-pt-xs">
       <div class="text-center q-pt-md">
         <div class="fit row wrap justify-start items-start content-start">
@@ -14,11 +14,11 @@
         </div>
       </div>
     </div>
-    <q-separator class="q-mt-sm" size="1px" />
+    <q-separator class="q-mt-sm" size="3px" />
     <div class="q-gutter-y-md q-pt-sm">
       <q-tabs v-model="tab" dense class="text-black">
         <q-tab name="grafik" icon="bar_chart" label="Grafik" />
-        <q-tab name="edit" icon="list_alt" label="Edit Data" />
+        <q-tab name="edit" icon="list_alt" label="Laporan" />
       </q-tabs>
     </div>
   </div>

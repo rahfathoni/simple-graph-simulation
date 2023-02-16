@@ -1,7 +1,7 @@
 <template>
   <div class="q-px-md">
     <div style="font-size: 20px" class="text-weight-bold">
-      Penjualan setiap makanan
+      Penjualan Setiap Makanan
     </div>
     <div class="fit row no-wrap justify-start items-start content-start">
       <div class="col-sm-5 offset-1 col-xs-12">
@@ -69,19 +69,26 @@ export default {
           },
           title: {
             display: true,
-            text: "Jumlah terjual",
+            text: "Jumlah terjual (pcs)",
           },
         },
         x: {
           title: {
             display: true,
-            text: "Tanggal input data",
+            text: "Tanggal input data (yyyy-mm-dd)",
           },
         },
       },
       plugins: {
         legend: {
           display: false,
+        },
+        tooltip: {
+          callbacks: {
+            label: (val) => {
+              return `Jumlah Terjual: ${val.formattedValue} pcs`;
+            },
+          },
         },
       },
       layout: {
@@ -101,7 +108,6 @@ export default {
       return {
         datasets: [
           {
-            label: "Jumlah terjual",
             backgroundColor: "#635985",
             data: data.list,
             maxBarThickness: 200,

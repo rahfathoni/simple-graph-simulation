@@ -1,7 +1,7 @@
 <template>
   <div class="q-px-md">
     <div style="font-size: 20px" class="text-weight-bold">
-      Total penjualan seluruh makanan
+      Total Penjualan Seluruh Makanan
     </div>
     <div class="fit row no-wrap justify-end items-end content-end q-pt-md">
       <div class="col-12">
@@ -41,7 +41,7 @@ export default {
         tooltip: {
           callbacks: {
             label: (val) => {
-              return `${val.formattedValue} pcs`;
+              return `Total Terjual: ${val.formattedValue} pcs`;
             },
           },
         },

@@ -1,13 +1,20 @@
 <template>
-  <div class="q-pa-md">edit page</div>
+  <div class="q-pa-sm">
+    <InputComp />
+    <TableComp class="q-pt-md" />
+  </div>
 </template>
 
 <script>
-import { onBeforeMount } from "vue";
+import { onBeforeMount, defineAsyncComponent } from "vue";
 import { useStore } from "vuex";
 
 export default {
   name: "EditPage",
+  components: {
+    InputComp: defineAsyncComponent(() => import("./Input")),
+    TableComp: defineAsyncComponent(() => import("./Table")),
+  },
   setup() {
     const store = useStore();
 
