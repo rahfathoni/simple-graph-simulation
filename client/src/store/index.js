@@ -2,6 +2,21 @@ import { createStore } from "vuex";
 
 const services = require("@/services/index").default;
 
+const generateRandomColor = (data) => {
+  let colors = [];
+  if (data && data.length !== 0) {
+    for (let i = 0; i < data.length; i++) {
+      let letters = "0123456789ABCDEF".split("");
+      let color = "#";
+      for (let x = 0; x < 6; x++) {
+        color += letters[Math.floor(Math.random() * 16)];
+      }
+      colors.push(color);
+    }
+  }
+  return colors;
+};
+
 export default createStore({
   state: {
     menuTab: "grafik",
@@ -21,13 +36,23 @@ export default createStore({
       return state.foodNameList;
     },
     getFoodTotal(state) {
-      return state.foodTotal;
+      const data = state.foodTotal;
+      const labels = data.map((item) => item.food);
+      const amount = data.map((item) => item.totalAmount);
+      const result = {
+        list: data,
+        labels: labels,
+        data: amount,
+        total: amount.reduce((a, b) => a + b, 0),
+        colors: generateRandomColor(data),
+      };
+      return result;
     },
     getAllFoodReport(state) {
       return state.allFoodReport;
     },
     getFoodReportByName(state) {
-      return state.foodReportByName.list;
+      return state.foodReportByName;
     },
   },
   mutations: {
